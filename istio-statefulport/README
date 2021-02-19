@@ -1,0 +1,2 @@
+works for 90.  There is an EndpointSlice limit of 100 ports per ingress.  Not clear which layer that's at
+
