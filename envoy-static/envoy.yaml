@@ -31,6 +31,20 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
+                  headers:
+                    - name: "X-node"
+                      exact_match: "1"
+                  prefix: "/"
+                route:
+                  cluster: helloworld-1
+              - match:
+                  headers:
+                    - name: "X-node"
+                      exact_match: "2"
+                  prefix: "/"
+                route:
+                  cluster: helloworld-2
+              - match:
                   prefix: "/"
                 route:
                   cluster: helloworld
@@ -50,3 +64,30 @@ static_resources:
               socket_address:
                 address: helloworld
                 port_value: 5000
+  - name: helloworld-1
+    connect_timeout: 2s
+    type: STRICT_DNS
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: helloworld-1
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: helloworld-set-1.helloworld.default.svc.cluster.local
+                port_value: 5000
+  - name: helloworld-2
+    connect_timeout: 2s
+    type: STRICT_DNS
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: helloworld-2
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: helloworld-set-2.helloworld.default.svc.cluster.local
+                port_value: 5000
+  
