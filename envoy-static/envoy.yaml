@@ -66,7 +66,7 @@ static_resources:
                 port_value: 5000
   - name: helloworld-1
     connect_timeout: 2s
-    type: STRICT_DNS
+    type: STATIC
     dns_lookup_family: V4_ONLY
     load_assignment:
       cluster_name: helloworld-1
@@ -75,11 +75,11 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: helloworld-set-1.helloworld.default.svc.cluster.local
+                address: 10.244.1.12
                 port_value: 5000
   - name: helloworld-2
     connect_timeout: 2s
-    type: STRICT_DNS
+    type: STATIC
     dns_lookup_family: V4_ONLY
     load_assignment:
       cluster_name: helloworld-2
@@ -88,6 +88,6 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: helloworld-set-2.helloworld.default.svc.cluster.local
+                address: 10.244.1.13
                 port_value: 5000
   

@@ -13,14 +13,13 @@ spec:
     app: helloworld
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: helloworld-set
+  name: helloworld
   labels:
     app: helloworld
     version: v1
 spec:
-  serviceName: "helloworld"
   replicas: 5
   selector:
     matchLabels:
