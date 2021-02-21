@@ -24,20 +24,20 @@ resources:
             - name: local_service
               domains: ["*"]
               routes:
-              # - match:
-              #     headers:
-              #       - name: "X-node"
-              #         exact_match: "6554bc97f-zphs7"
-              #     prefix: "/"
-              #   route:
-              #     cluster: helloworld-6554bc97f-zphs7
-              # - match:
-              #     headers:
-              #       - name: "X-node"
-              #         exact_match: "6554bc97f-96rk6"
-              #     prefix: "/"
-              #   route:
-              #     cluster: helloworld-6554bc97f-96rk6
+              - match:
+                  headers:
+                    - name: "X-node"
+                      exact_match: "6554bc97f-zphs7"
+                  prefix: "/"
+                route:
+                  cluster: helloworld-6554bc97f-zphs7
+              - match:
+                  headers:
+                    - name: "X-node"
+                      exact_match: "6554bc97f-96rk6"
+                  prefix: "/"
+                route:
+                  cluster: helloworld-6554bc97f-96rk6
               - match:
                   prefix: "/"
                 route:
