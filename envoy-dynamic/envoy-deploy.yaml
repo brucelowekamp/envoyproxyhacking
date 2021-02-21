@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoyproxy
+  labels:
+    app: envoyproxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoyproxy
+  template:
+    metadata:
+      labels:
+        app: envoyproxy
+    spec:
+      containers:
+      - name: envoyproxy
+        image: "bblakscr.azurecr.io/envoy/envoy"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - name: envoy-admin
+          containerPort: 9902
+      imagePullSecrets:
+        - name: acr-secret
+          
+

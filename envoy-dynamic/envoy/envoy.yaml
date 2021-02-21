@@ -1,0 +1,17 @@
+node:
+  id: id_1
+  cluster: test
+
+admin:
+  access_log_path: "/access.log"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9902
+dynamic_resources:
+  cds_config:
+    path: "/etc/envoy/cds.yaml"
+    resource_api_version: V3
+  lds_config:
+    path: "/etc/envoy/lds.yaml"
+    resource_api_version: V3
