@@ -1,9 +1,9 @@
-#admin:
-#  access_log_path: "/access.log"
-#  address:
-#    socket_address:
-#      address: 0.0.0.0
-#      port_value: 9902
+admin:
+  access_log_path: "/access.log"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9902
 static_resources:
   listeners:
   - name: listener_0
@@ -33,17 +33,17 @@ static_resources:
               - match:
                   headers:
                     - name: "X-node"
-                      exact_match: "1"
+                      exact_match: "6554bc97f-2whwm"
                   prefix: "/"
                 route:
-                  cluster: helloworld-1
+                  cluster: helloworld-6554bc97f-2whwm
               - match:
                   headers:
                     - name: "X-node"
-                      exact_match: "2"
+                      exact_match: "6554bc97f-m7xbt"
                   prefix: "/"
                 route:
-                  cluster: helloworld-2
+                  cluster: helloworld-6554bc97f-m7xbt
               - match:
                   prefix: "/"
                 route:
@@ -64,30 +64,30 @@ static_resources:
               socket_address:
                 address: helloworld
                 port_value: 5000
-  - name: helloworld-1
+  - name: helloworld-6554bc97f-2whwm
     connect_timeout: 2s
     type: STATIC
     dns_lookup_family: V4_ONLY
     load_assignment:
-      cluster_name: helloworld-1
+      cluster_name: helloworld-6554bc97f-2whwm
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: 10.244.1.12
+                address: 10.244.0.5
                 port_value: 5000
-  - name: helloworld-2
+  - name: helloworld-6554bc97f-m7xbt
     connect_timeout: 2s
     type: STATIC
     dns_lookup_family: V4_ONLY
     load_assignment:
-      cluster_name: helloworld-2
+      cluster_name: helloworld-6554bc97f-m7xbt
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: 10.244.1.13
+                address: 10.244.0.9
                 port_value: 5000
   
