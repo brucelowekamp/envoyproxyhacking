@@ -10,8 +10,8 @@ admin:
       port_value: 9902
 dynamic_resources:
   cds_config:
-    path: "/etc/envoy/cds.yaml"
+    path: "/var/lib/envoy/cds.yaml"
     resource_api_version: V3
   lds_config:
-    path: "/etc/envoy/lds.yaml"
+    path: "/var/lib/envoy/lds.yaml"
     resource_api_version: V3

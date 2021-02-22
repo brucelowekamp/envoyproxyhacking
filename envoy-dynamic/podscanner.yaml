@@ -1,0 +1,7 @@
+cdsfile: "/var/lib/envoy/cds.yaml"
+ldsfile: "/var/lib/envoy/lds.yaml"
+poll_seconds: 5
+services:
+  - name: helloworld
+    port: 5000
+    
