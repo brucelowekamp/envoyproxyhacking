@@ -30,7 +30,13 @@ where to redirect to.
   and adds podscanner.py + python runtime.  Otherwise the service
   config comes in via k8 deployment tooling (envoy-deploy.yaml adds
   podscanner.yaml when creating the service).
-  
+
+podscanner.py (in the envoy image) is the key logic for updating the
+config.  It polls the k8 api-server every 5 seconds and writes out
+config files that establishes a "Cluster" for each pod in the Service
+in addition to the standard cluster that balances across all of the
+pods.  It then creates listener filters to route appropriately based
+on the header.
 
 
 ## Example
