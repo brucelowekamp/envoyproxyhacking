@@ -1,0 +1,67 @@
+Envoy is set up to balance traffic across all pods unless an X-node
+header is set to a node's id.  If that node exists, traffic is proxied
+to it.  Otherwise the header is ignored and the traffic forwarded
+randomly.
+
+Example:
+
+$ kubectl get all
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/envoyproxy-7894b6d45c-shhjt   1/1     Running   0          20m
+pod/envoyproxy-7894b6d45c-xjx69   1/1     Running   0          29m
+pod/helloworld-6554bc97f-hcpcr    1/1     Running   0          116m
+pod/helloworld-6554bc97f-mlrsw    1/1     Running   0          27h
+pod/helloworld-6554bc97f-n6js5    1/1     Running   0          62m
+pod/helloworld-6554bc97f-pw8g4    1/1     Running   0          3h23m
+pod/helloworld-6554bc97f-xr5kw    1/1     Running   0          112m
+
+NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
+service/envoy-lb     LoadBalancer   10.0.116.101   52.224.134.231   80:31120/TCP   7m19s
+
+$ curl -i http://52.224.134.231/hello
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 56
+server: envoy
+date: Mon, 22 Feb 2021 17:41:42 GMT
+x-envoy-upstream-service-time: 203
+
+Hello version: v1, instance: helloworld-6554bc97f-9xqjw
+
+bloweka@BLOWEKA-TPS ~/src/envoyproxyhacking/envoy-dynamic
+$ curl -i http://52.224.134.231/hello
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 56
+server: envoy
+date: Mon, 22 Feb 2021 17:41:43 GMT
+x-envoy-upstream-service-time: 163
+
+Hello version: v1, instance: helloworld-6554bc97f-n4sl5
+
+$ curl -i -H "X-node: 6554bc97f-n4sl5" http://52.224.134.231/hello
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 56
+server: envoy
+date: Mon, 22 Feb 2021 18:17:07 GMT
+x-envoy-upstream-service-time: 132
+
+Hello version: v1, instance: helloworld-6554bc97f-n4sl5
+
+
+
+To change the app, just update podscanner.yaml.  As long as it's
+deployed with <name>-<something> as the podname, will work.  Note that
+podscanner.yaml is read and deployed into the pod at envoy deployment
+time
+
+Setup:
+
+kubectl create configmap podscannerconfig --from-file=podscanner.yaml
+kubectl apply -f podrback.yaml
+# runs the proxy but leaves it internal for testing with port-forward
+kubectl apply -f envoy-deploy.yaml
+# if you want to expose it 
+kubectl apply -f envoy-loadbalancer.yaml
+kubectl apply -f helloworld-5.yaml

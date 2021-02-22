@@ -103,6 +103,7 @@ v1 = kubernetes.client.CoreV1Api()
 
 lastcds = None
 lastlds = None
+update_count = 0
 
 while True:
   # print ("scan")
@@ -128,7 +129,13 @@ while True:
   newcds = cds.getvalue()
   newlds = lds.getvalue()
 
+  # hack alert.  envoy can't handle simultaneous update of cluster and
+  # listener definitions, so do it a couple times so it sticks.
   if newcds != lastcds or newlds != lastlds:
+    update_count = 2
+
+  if update_count > 0:
+    update_count -= 1
     print("update clusters")
     with tempfile.NamedTemporaryFile(mode='w', prefix='cds', delete=False) as tempcds:
       with tempfile.NamedTemporaryFile(mode='w', prefix='lds', delete=False) as templds:
