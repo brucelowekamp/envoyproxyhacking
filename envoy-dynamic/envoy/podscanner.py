@@ -5,7 +5,7 @@ import tempfile
 from time import sleep
 import yaml
 
-CONFIG_FILE = "podscanner.yaml"
+CONFIG_FILE = "/podscanner/podscanner.yaml"
 
 cds_filename = None
 lds_filename = None
@@ -21,11 +21,16 @@ with open (CONFIG_FILE) as f:
   name = config['services'][0]['name']
   port = config['services'][0]['port']
 
+assert cds_filename is not None
+assert lds_filename is not None
+assert name is not None
+assert port is not None
+assert poll_s is not None
 
 CDS_INTRO = """resources:
 - "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
   name: {name}
-  connect_timeout: 2s
+  connect_timeout: 10s
   type: STRICT_DNS
   # Comment out the following line to test on v6 networks
   dns_lookup_family: V4_ONLY
@@ -40,7 +45,7 @@ CDS_INTRO = """resources:
               port_value: {port}"""
 CDS_HOST = """- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
   name: {name}-{id}
-  connect_timeout: 2s
+  connect_timeout: 10s
   type: STATIC
   load_assignment:
     cluster_name: {name}-{id}

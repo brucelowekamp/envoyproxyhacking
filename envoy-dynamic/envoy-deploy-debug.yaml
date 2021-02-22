@@ -22,10 +22,17 @@ spec:
         - containerPort: 80
         - name: envoy-admin
           containerPort: 9902
+        volumeMounts:
+        - name: podscanner
+          mountPath: /podscanner
         command:
         - tail
         - "-f"
         - /dev/null
+      volumes:
+        - name: podscanner
+          configMap:
+            name: podscannerconfig
       imagePullSecrets:
         - name: acr-secret
           
