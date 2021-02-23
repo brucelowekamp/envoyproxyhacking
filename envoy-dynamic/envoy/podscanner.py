@@ -11,12 +11,14 @@ cds_filename = None
 lds_filename = None
 name = None
 port = None
+header = None
 poll_s = None
 
 with open (CONFIG_FILE) as f:
   config = yaml.load(f, Loader=yaml.BaseLoader)
   cds_filename = config['cdsfile']
   lds_filename = config['ldsfile']
+  header = config['header']
   poll_s = int(config['poll_seconds'])
   name = config['services'][0]['name']
   port = config['services'][0]['port']
@@ -25,37 +27,35 @@ assert cds_filename is not None
 assert lds_filename is not None
 assert name is not None
 assert port is not None
+assert header is not None
 assert poll_s is not None
 
 CDS_INTRO = """resources:
 - "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
-  name: {name}
-  connect_timeout: 10s
-  type: STRICT_DNS
-  # Comment out the following line to test on v6 networks
-  dns_lookup_family: V4_ONLY
-  load_assignment:
-    cluster_name: {name}
-    endpoints:
-    - lb_endpoints:
-      - endpoint:
-          address:
-            socket_address:
-              address: {name}
-              port_value: {port}"""
-CDS_HOST = """- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
-  name: {name}-{id}
+  name: {name}-metadata
   connect_timeout: 10s
   type: STATIC
+  lb_policy: LEAST_REQUEST
+  lb_subset_config:
+    fallback_policy: ANY_ENDPOINT
+    subset_selectors:
+      - keys:
+           - node
   load_assignment:
-    cluster_name: {name}-{id}
+    cluster_name: {name}lbmetadata
     endpoints:
-    - lb_endpoints:
-      - endpoint:
+    - lb_endpoints:"""
+
+CDS_HOST = """      - endpoint:
           address:
             socket_address:
               address: {ip}
-              port_value: {port}"""
+              port_value: {port}
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "{id}"
+"""
 
 LDS_INTRO = """resources:
 - "@type": type.googleapis.com/envoy.config.listener.v3.Listener
@@ -76,42 +76,47 @@ LDS_INTRO = """resources:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
               path: /dev/stdout
           http_filters:
-          - name: envoy.filters.http.router
+            - name: envoy.filters.http.header_to_metadata
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.header_to_metadata.v3.Config
+                request_rules:
+                  - header: "{header}"
+                    on_header_present:
+                      metadata_namespace: envoy.lb
+                      key: node
+                      type: STRING
+                    remove: false
+            - name: envoy.filters.http.router
           route_config:
-            name: local_route
-            virtual_hosts:
-            - name: local_service
-              domains: ["*"]
-              routes:"""
+              name: local_route
+              virtual_hosts:
+              - name: local_service
+                domains: ["*"]
+                routes:
+                - match:
+                    prefix: "/"
+                  route:
+                    cluster: {name}-metadata
+"""
 
-LDS_HOST = """              - match:
-                  headers:
-                    - name: "X-node"
-                      exact_match: "{id}"
-                  prefix: "/"
-                route:
-                  cluster: {name}-{id}"""
+LDS_HOST = ""
 
 
-LDS_DEFAULT = """              - match:
-                  prefix: "/"
-                route:
-                  cluster: {name}"""
+LDS_DEFAULT = ""
 
 kubernetes.config.load_incluster_config()
 v1 = kubernetes.client.CoreV1Api()
 
 lastcds = None
 lastlds = None
-update_count = 0
 
 while True:
   # print ("scan")
   scan = v1.list_pod_for_all_namespaces(watch=False)
   cds = StringIO()
   lds = StringIO()
-  print (CDS_INTRO.format(name=name, port=port), file=cds)
-  print (LDS_INTRO.format(name=name, port=port), file=lds)
+  print (CDS_INTRO.format(name=name, port=port, header=header), file=cds)
+  print (LDS_INTRO.format(name=name, port=port, header=header), file=lds)
   for i in scan.items:
     #print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
     if i.metadata.name.startswith(name):
@@ -129,23 +134,19 @@ while True:
   newcds = cds.getvalue()
   newlds = lds.getvalue()
 
-  # hack alert.  envoy can't handle simultaneous update of cluster and
-  # listener definitions, so do it a couple times so it sticks.
-  if newcds != lastcds or newlds != lastlds:
-    update_count = 2
-
-  if update_count > 0:
-    update_count -= 1
-    print("update clusters")
+  if newcds != lastcds:
+    print("update cds")
     with tempfile.NamedTemporaryFile(mode='w', prefix='cds', delete=False) as tempcds:
-      with tempfile.NamedTemporaryFile(mode='w', prefix='lds', delete=False) as templds:
-        print (newcds, file=tempcds)
-        print (newlds, file=templds)
-        tempcds.close()
-        templds.close()
-        os.rename(tempcds.name, cds_filename)
-        os.rename(templds.name, lds_filename)
-        lastcds = newcds
-        lastlds = newlds
+      print (newcds, file=tempcds)
+      tempcds.close()
+      os.rename(tempcds.name, cds_filename)
+      lastcds = newcds
+  if newlds != lastlds:
+    print("update lds")
+    with tempfile.NamedTemporaryFile(mode='w', prefix='lds', delete=False) as templds:
+      print (newlds, file=templds)
+      templds.close()
+      os.rename(templds.name, lds_filename)
+      lastlds = newlds
   sleep(poll_s)
 
