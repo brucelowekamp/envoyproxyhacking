@@ -169,6 +169,7 @@ while True:
       tempcds.close()
       os.rename(tempcds.name, cds_filename)
       lastcds = newcds
+      sleep(1)
   if newlds != lastlds:
     print("update lds")
     with tempfile.NamedTemporaryFile(mode='w', prefix='lds', delete=False) as templds:

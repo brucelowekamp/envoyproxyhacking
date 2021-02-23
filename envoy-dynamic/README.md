@@ -28,6 +28,11 @@ where to redirect to.
 Implementation should fall back to consistent-hashed routing but at
 present only does round-robin.
 
+If envoy somehow parses the lds config before the cds config, it will
+simply hang.  Moving to an ADS wire protocol would likely fix that.
+Right now the runner starts podscanner and then waits 10s, assuming
+both files have been written.  (and hoping that solves the problem)
+
 ## Structure
   The envoy dir is the docker build dir.  Uses envoy standard image
   and adds podscanner.py + python runtime.  Otherwise the service
@@ -82,7 +87,7 @@ x-envoy-upstream-service-time: 132
 
 Hello version: v1, instance: helloworld-6554bc97f-n4sl5
 
-$ curl -i http://localhost:8888/hello?node=6554bc97f-h8ghw
+$ curl -i http://52.224.134.231/hello?node=6554bc97f-h8ghw
 HTTP/1.1 200 OK
 content-type: text/html; charset=utf-8
 content-length: 56
