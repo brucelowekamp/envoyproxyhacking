@@ -33,11 +33,11 @@ where to redirect to.
 
 podscanner.py (in the envoy image) is the key logic for updating the
 config.  It polls the k8s api-server every 5 seconds and writes out
-config files that establishes a "Cluster" for each pod in the Service
-in addition to the standard cluster that balances across all of the
-pods.  It then creates listener filters to route appropriately based
-on the header.  This is sucked into envoy via cds_config and
-lds_config.
+config files that establishes a "Cluster" that has each pod labeled
+with metadata with its id.  The Listener is configured to extract the
+node header and then route to a pod with that metadata.  If there is
+no node header or if the requested node is not found, round-robin
+routing is used.
 
 The static config used by Envoy in this setup basically just tells it
 to open an admin port (9902) and to read the two dynamic config files.
@@ -82,15 +82,16 @@ Hello version: v1, instance: helloworld-6554bc97f-n4sl5
 
 ## Configuration
 
-To change the app, just update podscanner.yaml.  As long as it's
-deployed with <name>-<something> as the podname, will work.  Note that
-podscanner.yaml is read and deployed into the pod at envoy deployment
-time
+To change the app, update podscanner.yaml then delete and re-add the
+configmap.  As long as the service is deployed with <name>-<something>
+as the podname, will work.  Note that podscanner.yaml is read and
+deployed into the pod at configmap creation time and not every time
+envoy is deployed.
 
 ## Install
 
 ```
-kubectl create configmap podscannerconfig --from-file=podscanner.yaml
+kubectl create configmap podscannerconfig --from-file=podscanner.yaml # note changing configmaps is a PITA
 kubectl apply -f podrback.yaml
 # runs the proxy but leaves it internal for testing with port-forward
 kubectl apply -f envoy-deploy.yaml

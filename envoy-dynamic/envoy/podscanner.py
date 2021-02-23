@@ -35,7 +35,7 @@ CDS_INTRO = """resources:
   name: {name}-metadata
   connect_timeout: 10s
   type: STATIC
-  lb_policy: LEAST_REQUEST
+  lb_policy: ROUND_ROBIN
   lb_subset_config:
     fallback_policy: ANY_ENDPOINT
     subset_selectors:
@@ -99,9 +99,6 @@ LDS_INTRO = """resources:
                     cluster: {name}-metadata
 """
 
-LDS_HOST = ""
-
-
 LDS_DEFAULT = ""
 
 kubernetes.config.load_incluster_config()
@@ -128,7 +125,7 @@ while True:
         continue
       #print("%s\t%s" % (n, ip))
       print (CDS_HOST.format(name=name, port=port, id=id, ip=ip), file=cds)
-      print (LDS_HOST.format(name=name, port=port, id=id, ip=ip), file=lds)
+      #print (LDS_HOST.format(name=name, port=port, id=id, ip=ip), file=lds)
   print (LDS_DEFAULT.format(name=name, port=port), file=lds)
 
   newcds = cds.getvalue()
