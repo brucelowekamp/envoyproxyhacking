@@ -12,6 +12,7 @@ lds_filename = None
 name = None
 port = None
 header = None
+queryparam = None
 poll_s = None
 
 with open (CONFIG_FILE) as f:
@@ -19,6 +20,7 @@ with open (CONFIG_FILE) as f:
   cds_filename = config['cdsfile']
   lds_filename = config['ldsfile']
   header = config['header']
+  queryparam = config['queryparam']
   poll_s = int(config['poll_seconds'])
   name = config['services'][0]['name']
   port = config['services'][0]['port']
@@ -28,6 +30,7 @@ assert lds_filename is not None
 assert name is not None
 assert port is not None
 assert header is not None
+assert queryparam is not None
 assert poll_s is not None
 
 CDS_INTRO = """resources:
@@ -76,6 +79,34 @@ LDS_INTRO = """resources:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
               path: /dev/stdout
           http_filters:
+            - name: envoy.lua
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+                inline_code: |
+                  function envoy_on_request(request_handle)
+                    function urldecode(s)
+                      s = s:gsub('+', ' ')
+                          :gsub('%%(%x%x)', function(h)
+                                              return string.char(tonumber(h, 16))
+                                            end)
+                      return s
+                    end
+                    function findnode(s)
+                      for k,v in s:gmatch('([^&=?]-)=([^&=?]+)' ) do
+                        if k == "{queryparam}" then
+                          return urldecode(v)
+                        end
+                      end
+                      return nil
+                    end
+                    if request_handle:headers():get("{header}") ~= nil then
+                      return
+                    end
+                    local nodespec = findnode(request_handle:headers():get(":path"))
+                    if nodespec ~= nil then
+                      request_handle:headers():add("{header}", nodespec)
+                    end
+                  end
             - name: envoy.filters.http.header_to_metadata
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.http.header_to_metadata.v3.Config
@@ -112,8 +143,8 @@ while True:
   scan = v1.list_pod_for_all_namespaces(watch=False)
   cds = StringIO()
   lds = StringIO()
-  print (CDS_INTRO.format(name=name, port=port, header=header), file=cds)
-  print (LDS_INTRO.format(name=name, port=port, header=header), file=lds)
+  print (CDS_INTRO.format(name=name, port=port, header=header, queryparam=queryparam), file=cds)
+  print (LDS_INTRO.format(name=name, port=port, header=header, queryparam=queryparam), file=lds)
   for i in scan.items:
     #print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
     if i.metadata.name.startswith(name):

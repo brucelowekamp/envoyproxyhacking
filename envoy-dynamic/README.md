@@ -1,9 +1,9 @@
 # Envoy podscanner hack
 
 Envoy is set up to balance traffic across all pods unless an X-node
-header is set to a node's id.  If that node exists, traffic is proxied
-to it.  Otherwise the header is ignored and the traffic forwarded
-randomly.
+header or urlparam is set to a node's id.  If that node exists,
+traffic is proxied to it.  Otherwise the header is ignored and the
+traffic forwarded randomly.
 
 ## Disclaimer
 This is proof-of-concept.  Doesn't do TLS at all.  The config is
@@ -17,13 +17,16 @@ with that role to the proxy pods.  Can be hardened in many other
 ways...
 
 Behavior at shutdown is undesirable because the pod still appears in
-apiserver after it has stopped accepting connections (while its busy
+apiserver after it has stopped accepting connections (while it's busy
 terminating), so requests timeout instead of being sent to an
 available pod for a few seconds.  That can probably be fixed by
 checking the status field.  But the entire shutdown process needs a
 bit of work as in an ideal state a pod might stop taking random new
 requests but still receive requests to state it still owns or knows
 where to redirect to.
+
+Implementation should fall back to consistent-hashed routing but at
+present only does round-robin.
 
 ## Structure
   The envoy dir is the docker build dir.  Uses envoy standard image
@@ -34,10 +37,10 @@ where to redirect to.
 podscanner.py (in the envoy image) is the key logic for updating the
 config.  It polls the k8s api-server every 5 seconds and writes out
 config files that establishes a "Cluster" that has each pod labeled
-with metadata with its id.  The Listener is configured to extract the
-node header and then route to a pod with that metadata.  If there is
-no node header or if the requested node is not found, round-robin
-routing is used.
+with metadata with its id.  The Listener is configured to copy the
+urlparam (if present) to the header, then use the node header to route
+to a pod with that metadata.  If there is no node header or if the
+requested node is not found, round-robin routing is used.
 
 The static config used by Envoy in this setup basically just tells it
 to open an admin port (9902) and to read the two dynamic config files.
@@ -78,6 +81,16 @@ date: Mon, 22 Feb 2021 18:17:07 GMT
 x-envoy-upstream-service-time: 132
 
 Hello version: v1, instance: helloworld-6554bc97f-n4sl5
+
+$ curl -i http://localhost:8888/hello?node=6554bc97f-h8ghw
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 56
+server: envoy
+date: Tue, 23 Feb 2021 19:02:53 GMT
+x-envoy-upstream-service-time: 145
+
+Hello version: v1, instance: helloworld-6554bc97f-h8ghw
 ```
 
 ## Configuration
