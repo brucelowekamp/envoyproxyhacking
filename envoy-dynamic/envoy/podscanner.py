@@ -44,6 +44,7 @@ CDS_INTRO = """resources:
     subset_selectors:
       - keys:
            - node
+        single_host_per_subset: true
   load_assignment:
     cluster_name: {name}lbmetadata
     endpoints:

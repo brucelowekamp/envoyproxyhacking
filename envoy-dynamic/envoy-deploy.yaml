@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: envoyproxy
-        image: "bblakscr.azurecr.io/envoy/envoy"
+        image: "blowekaacr.azurecr.io/envoy/envoy"
         imagePullPolicy: Always
         ports:
         - containerPort: 80

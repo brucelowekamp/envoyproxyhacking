@@ -1,5 +1,5 @@
 #FROM envoyproxy/envoy-dev:latest
-FROM mcr.microsoft.com/oss/envoyproxy/envoy:v1.17.0
+FROM mcr.microsoft.com/oss/envoyproxy/envoy:v1.17.2
 
 # installing python3-pip brings in insane cruft!!!
 RUN apt-get update && \

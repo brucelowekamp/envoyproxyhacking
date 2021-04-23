@@ -110,7 +110,7 @@ envoy is deployed.
 
 ```
 kubectl create configmap podscannerconfig --from-file=podscanner.yaml # note changing configmaps is a PITA
-kubectl apply -f podrback.yaml
+kubectl apply -f podrbac.yaml
 # runs the proxy but leaves it internal for testing with port-forward
 kubectl apply -f envoy-deploy.yaml
 # if you want to expose it 
