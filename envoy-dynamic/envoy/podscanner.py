@@ -38,7 +38,7 @@ CDS_INTRO = """resources:
   name: {name}-metadata
   connect_timeout: 10s
   type: STATIC
-  lb_policy: ROUND_ROBIN
+  lb_policy: RING_HASH
   lb_subset_config:
     fallback_policy: ANY_ENDPOINT
     subset_selectors:
@@ -129,6 +129,9 @@ LDS_INTRO = """resources:
                     prefix: "/"
                   route:
                     cluster: {name}-metadata
+                    hash_policy:
+                      header:
+                        header_name: "x-key"
 """
 
 LDS_DEFAULT = ""
