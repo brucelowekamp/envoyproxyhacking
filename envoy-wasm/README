@@ -1,0 +1,5 @@
+files here should be copied into an envoy examples/wasm-cc build dir to be build into wasm plugin
+
+cd ~/envoy/examples/wasm-cc
+cp /src/envoyproxyhacking/envoy-wasm/BUILD .
+bazel build //examples/wasm-cc:tenant_filter_wasm.wasm
