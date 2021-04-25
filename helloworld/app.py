@@ -16,9 +16,10 @@ def health():
 
 @app.route('/')
 def root():
-    msg = 'instance: %s user: %s tenant: %s' % (os.environ.get('HOSTNAME'),
+    msg = 'instance: %s user: %s tenant: %s key: %s' % (os.environ.get('HOSTNAME'),
                                                 request.headers.get('x-user'),
-                                                request.headers.get('x-tenant'))
+                                                request.headers.get('x-tenant'),
+                                                request.headers.get('x-key'))
     
 
     return msg

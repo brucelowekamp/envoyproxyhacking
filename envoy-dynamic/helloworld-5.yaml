@@ -37,6 +37,6 @@ spec:
         resources:
           requests:
             cpu: "1m"
-        imagePullPolicy: IfNotPresent #Always
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
