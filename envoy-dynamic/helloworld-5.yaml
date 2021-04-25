@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: docker.io/istio/examples-helloworld-v1
+        image: blowekaacr.azurecr.io/helloworld/hellouser
         resources:
           requests:
             cpu: "1m"
