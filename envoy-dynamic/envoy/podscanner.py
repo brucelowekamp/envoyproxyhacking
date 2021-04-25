@@ -132,6 +132,95 @@ LDS_INTRO = """resources:
                     hash_policy:
                       header:
                         header_name: "x-key"
+- "@type": type.googleapis.com/envoy.config.listener.v3.Listener
+  name: listener_1
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8080
+  filter_chains:
+  - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          access_log:
+          - name: envoy.access_loggers.file
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+              path: /dev/stdout
+          http_filters:
+            - name: envoy.lua
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+                inline_code: |
+                  function envoy_on_request(request_handle)
+                    function urldecode(s)
+                      s = s:gsub('+', ' ')
+                          :gsub('%%(%x%x)', function(h)
+                                              return string.char(tonumber(h, 16))
+                                            end)
+                      return s
+                    end
+                    function findnode(s)
+                      for k,v in s:gmatch('([^&=?]-)=([^&=?]+)' ) do
+                        if k == "{queryparam}" then
+                          return urldecode(v)
+                        end
+                      end
+                      return nil
+                    end
+                    if request_handle:headers():get("{header}") ~= nil then
+                      return
+                    end
+                    local nodespec = findnode(request_handle:headers():get(":path"))
+                    if nodespec ~= nil then
+                      request_handle:headers():add("{header}", nodespec)
+                    end
+                  end
+            - name: envoy.filters.http.wasm
+              typed_config:
+                "@type": type.googleapis.com/udpa.type.v1.TypedStruct
+                type_url: type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
+                value:
+                  config:
+                    name: "tenant_plugin"
+                    root_id: "tenant_root_id"
+                    configuration:
+                      "@type": "type.googleapis.com/google.protobuf.StringValue"
+                      value: |
+                        {{}}
+                    vm_config:
+                      runtime: "envoy.wasm.runtime.v8"
+                      vm_id: "my_vm_id"
+                      code:
+                        local:
+                          filename: "/etc/envoy/tenant_filter_wasm.wasm"
+                      configuration: {{}}
+            - name: envoy.filters.http.header_to_metadata
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.http.header_to_metadata.v3.Config
+                request_rules:
+                  - header: "{header}"
+                    on_header_present:
+                      metadata_namespace: envoy.lb
+                      key: node
+                      type: STRING
+                    remove: false
+            - name: envoy.filters.http.router
+          route_config:
+              name: local_route
+              virtual_hosts:
+              - name: local_service
+                domains: ["*"]
+                routes:
+                - match:
+                    prefix: "/"
+                  route:
+                    cluster: {name}-metadata
+                    hash_policy:
+                      header:
+                        header_name: "x-key"
 """
 
 LDS_DEFAULT = ""

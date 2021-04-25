@@ -8,6 +8,7 @@ RUN apt-get update && \
 RUN pip3 install kubernetes
 
 COPY ./envoy.yaml /etc/envoy/envoy.yaml
+COPY ./tenant_filter_wasm.wasm /etc/envoy/tenant_filter_wasm.wasm
 COPY ./cds.yaml /var/lib/envoy/cds.yaml
 COPY ./lds.yaml /var/lib/envoy/lds.yaml
 COPY ./runboth.sh /runboth.sh
