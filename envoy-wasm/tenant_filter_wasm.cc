@@ -50,8 +50,8 @@ bool TenantRootContext::onConfigure(size_t) {
   LOG_WARN("onConfigure");
   proxy_set_tick_period_milliseconds(1000); // 1 sec
 
-  tenant_map.insert(std::make_pair<std::string,int>("megacorp", 10));
-  tenant_map.insert(std::make_pair<std::string,int>("mediumcorp", 5));
+  tenant_map.insert(std::make_pair<std::string,int>("megacorp", 20));
+  tenant_map.insert(std::make_pair<std::string,int>("mediumcorp", 10));
 
   return true;
 }
