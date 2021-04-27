@@ -1,0 +1,1401 @@
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-1
+spec:
+  type: NodePort
+  ports:
+  - port: 30001
+    name: web
+    targetPort: 5678
+    nodePort: 30001
+  selector:
+    statefulset.kubernetes.io/pod-name: web-0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-2
+spec:
+  type: NodePort
+  ports:
+  - port: 30002
+    name: web
+    targetPort: 5678
+    nodePort: 30002
+  selector:
+    statefulset.kubernetes.io/pod-name: web-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-3
+spec:
+  type: NodePort
+  ports:
+  - port: 30003
+    name: web
+    targetPort: 5678
+    nodePort: 30003
+  selector:
+    statefulset.kubernetes.io/pod-name: web-2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-4
+spec:
+  type: NodePort
+  ports:
+  - port: 30004
+    name: web
+    targetPort: 5678
+    nodePort: 30004
+  selector:
+    statefulset.kubernetes.io/pod-name: web-3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-5
+spec:
+  type: NodePort
+  ports:
+  - port: 30005
+    name: web
+    targetPort: 5678
+    nodePort: 30005
+  selector:
+    statefulset.kubernetes.io/pod-name: web-4
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-6
+spec:
+  type: NodePort
+  ports:
+  - port: 30006
+    name: web
+    targetPort: 5678
+    nodePort: 30006
+  selector:
+    statefulset.kubernetes.io/pod-name: web-5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-7
+spec:
+  type: NodePort
+  ports:
+  - port: 30007
+    name: web
+    targetPort: 5678
+    nodePort: 30007
+  selector:
+    statefulset.kubernetes.io/pod-name: web-6
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-8
+spec:
+  type: NodePort
+  ports:
+  - port: 30008
+    name: web
+    targetPort: 5678
+    nodePort: 30008
+  selector:
+    statefulset.kubernetes.io/pod-name: web-7
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-9
+spec:
+  type: NodePort
+  ports:
+  - port: 30009
+    name: web
+    targetPort: 5678
+    nodePort: 30009
+  selector:
+    statefulset.kubernetes.io/pod-name: web-8
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-10
+spec:
+  type: NodePort
+  ports:
+  - port: 30010
+    name: web
+    targetPort: 5678
+    nodePort: 30010
+  selector:
+    statefulset.kubernetes.io/pod-name: web-9
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-11
+spec:
+  type: NodePort
+  ports:
+  - port: 30011
+    name: web
+    targetPort: 5678
+    nodePort: 30011
+  selector:
+    statefulset.kubernetes.io/pod-name: web-10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-12
+spec:
+  type: NodePort
+  ports:
+  - port: 30012
+    name: web
+    targetPort: 5678
+    nodePort: 30012
+  selector:
+    statefulset.kubernetes.io/pod-name: web-11
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-13
+spec:
+  type: NodePort
+  ports:
+  - port: 30013
+    name: web
+    targetPort: 5678
+    nodePort: 30013
+  selector:
+    statefulset.kubernetes.io/pod-name: web-12
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-14
+spec:
+  type: NodePort
+  ports:
+  - port: 30014
+    name: web
+    targetPort: 5678
+    nodePort: 30014
+  selector:
+    statefulset.kubernetes.io/pod-name: web-13
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-15
+spec:
+  type: NodePort
+  ports:
+  - port: 30015
+    name: web
+    targetPort: 5678
+    nodePort: 30015
+  selector:
+    statefulset.kubernetes.io/pod-name: web-14
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-16
+spec:
+  type: NodePort
+  ports:
+  - port: 30016
+    name: web
+    targetPort: 5678
+    nodePort: 30016
+  selector:
+    statefulset.kubernetes.io/pod-name: web-15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-17
+spec:
+  type: NodePort
+  ports:
+  - port: 30017
+    name: web
+    targetPort: 5678
+    nodePort: 30017
+  selector:
+    statefulset.kubernetes.io/pod-name: web-16
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-18
+spec:
+  type: NodePort
+  ports:
+  - port: 30018
+    name: web
+    targetPort: 5678
+    nodePort: 30018
+  selector:
+    statefulset.kubernetes.io/pod-name: web-17
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-19
+spec:
+  type: NodePort
+  ports:
+  - port: 30019
+    name: web
+    targetPort: 5678
+    nodePort: 30019
+  selector:
+    statefulset.kubernetes.io/pod-name: web-18
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-20
+spec:
+  type: NodePort
+  ports:
+  - port: 30020
+    name: web
+    targetPort: 5678
+    nodePort: 30020
+  selector:
+    statefulset.kubernetes.io/pod-name: web-19
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-21
+spec:
+  type: NodePort
+  ports:
+  - port: 30021
+    name: web
+    targetPort: 5678
+    nodePort: 30021
+  selector:
+    statefulset.kubernetes.io/pod-name: web-20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-22
+spec:
+  type: NodePort
+  ports:
+  - port: 30022
+    name: web
+    targetPort: 5678
+    nodePort: 30022
+  selector:
+    statefulset.kubernetes.io/pod-name: web-21
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-23
+spec:
+  type: NodePort
+  ports:
+  - port: 30023
+    name: web
+    targetPort: 5678
+    nodePort: 30023
+  selector:
+    statefulset.kubernetes.io/pod-name: web-22
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-24
+spec:
+  type: NodePort
+  ports:
+  - port: 30024
+    name: web
+    targetPort: 5678
+    nodePort: 30024
+  selector:
+    statefulset.kubernetes.io/pod-name: web-23
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-25
+spec:
+  type: NodePort
+  ports:
+  - port: 30025
+    name: web
+    targetPort: 5678
+    nodePort: 30025
+  selector:
+    statefulset.kubernetes.io/pod-name: web-24
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-26
+spec:
+  type: NodePort
+  ports:
+  - port: 30026
+    name: web
+    targetPort: 5678
+    nodePort: 30026
+  selector:
+    statefulset.kubernetes.io/pod-name: web-25
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-27
+spec:
+  type: NodePort
+  ports:
+  - port: 30027
+    name: web
+    targetPort: 5678
+    nodePort: 30027
+  selector:
+    statefulset.kubernetes.io/pod-name: web-26
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-28
+spec:
+  type: NodePort
+  ports:
+  - port: 30028
+    name: web
+    targetPort: 5678
+    nodePort: 30028
+  selector:
+    statefulset.kubernetes.io/pod-name: web-27
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-29
+spec:
+  type: NodePort
+  ports:
+  - port: 30029
+    name: web
+    targetPort: 5678
+    nodePort: 30029
+  selector:
+    statefulset.kubernetes.io/pod-name: web-28
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-30
+spec:
+  type: NodePort
+  ports:
+  - port: 30030
+    name: web
+    targetPort: 5678
+    nodePort: 30030
+  selector:
+    statefulset.kubernetes.io/pod-name: web-29
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-31
+spec:
+  type: NodePort
+  ports:
+  - port: 30031
+    name: web
+    targetPort: 5678
+    nodePort: 30031
+  selector:
+    statefulset.kubernetes.io/pod-name: web-30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-32
+spec:
+  type: NodePort
+  ports:
+  - port: 30032
+    name: web
+    targetPort: 5678
+    nodePort: 30032
+  selector:
+    statefulset.kubernetes.io/pod-name: web-31
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-33
+spec:
+  type: NodePort
+  ports:
+  - port: 30033
+    name: web
+    targetPort: 5678
+    nodePort: 30033
+  selector:
+    statefulset.kubernetes.io/pod-name: web-32
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-34
+spec:
+  type: NodePort
+  ports:
+  - port: 30034
+    name: web
+    targetPort: 5678
+    nodePort: 30034
+  selector:
+    statefulset.kubernetes.io/pod-name: web-33
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-35
+spec:
+  type: NodePort
+  ports:
+  - port: 30035
+    name: web
+    targetPort: 5678
+    nodePort: 30035
+  selector:
+    statefulset.kubernetes.io/pod-name: web-34
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-36
+spec:
+  type: NodePort
+  ports:
+  - port: 30036
+    name: web
+    targetPort: 5678
+    nodePort: 30036
+  selector:
+    statefulset.kubernetes.io/pod-name: web-35
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-37
+spec:
+  type: NodePort
+  ports:
+  - port: 30037
+    name: web
+    targetPort: 5678
+    nodePort: 30037
+  selector:
+    statefulset.kubernetes.io/pod-name: web-36
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-38
+spec:
+  type: NodePort
+  ports:
+  - port: 30038
+    name: web
+    targetPort: 5678
+    nodePort: 30038
+  selector:
+    statefulset.kubernetes.io/pod-name: web-37
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-39
+spec:
+  type: NodePort
+  ports:
+  - port: 30039
+    name: web
+    targetPort: 5678
+    nodePort: 30039
+  selector:
+    statefulset.kubernetes.io/pod-name: web-38
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-40
+spec:
+  type: NodePort
+  ports:
+  - port: 30040
+    name: web
+    targetPort: 5678
+    nodePort: 30040
+  selector:
+    statefulset.kubernetes.io/pod-name: web-39
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-41
+spec:
+  type: NodePort
+  ports:
+  - port: 30041
+    name: web
+    targetPort: 5678
+    nodePort: 30041
+  selector:
+    statefulset.kubernetes.io/pod-name: web-40
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-42
+spec:
+  type: NodePort
+  ports:
+  - port: 30042
+    name: web
+    targetPort: 5678
+    nodePort: 30042
+  selector:
+    statefulset.kubernetes.io/pod-name: web-41
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-43
+spec:
+  type: NodePort
+  ports:
+  - port: 30043
+    name: web
+    targetPort: 5678
+    nodePort: 30043
+  selector:
+    statefulset.kubernetes.io/pod-name: web-42
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-44
+spec:
+  type: NodePort
+  ports:
+  - port: 30044
+    name: web
+    targetPort: 5678
+    nodePort: 30044
+  selector:
+    statefulset.kubernetes.io/pod-name: web-43
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-45
+spec:
+  type: NodePort
+  ports:
+  - port: 30045
+    name: web
+    targetPort: 5678
+    nodePort: 30045
+  selector:
+    statefulset.kubernetes.io/pod-name: web-44
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-46
+spec:
+  type: NodePort
+  ports:
+  - port: 30046
+    name: web
+    targetPort: 5678
+    nodePort: 30046
+  selector:
+    statefulset.kubernetes.io/pod-name: web-45
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-47
+spec:
+  type: NodePort
+  ports:
+  - port: 30047
+    name: web
+    targetPort: 5678
+    nodePort: 30047
+  selector:
+    statefulset.kubernetes.io/pod-name: web-46
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-48
+spec:
+  type: NodePort
+  ports:
+  - port: 30048
+    name: web
+    targetPort: 5678
+    nodePort: 30048
+  selector:
+    statefulset.kubernetes.io/pod-name: web-47
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-49
+spec:
+  type: NodePort
+  ports:
+  - port: 30049
+    name: web
+    targetPort: 5678
+    nodePort: 30049
+  selector:
+    statefulset.kubernetes.io/pod-name: web-48
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-50
+spec:
+  type: NodePort
+  ports:
+  - port: 30050
+    name: web
+    targetPort: 5678
+    nodePort: 30050
+  selector:
+    statefulset.kubernetes.io/pod-name: web-49
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-51
+spec:
+  type: NodePort
+  ports:
+  - port: 30051
+    name: web
+    targetPort: 5678
+    nodePort: 30051
+  selector:
+    statefulset.kubernetes.io/pod-name: web-50
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-52
+spec:
+  type: NodePort
+  ports:
+  - port: 30052
+    name: web
+    targetPort: 5678
+    nodePort: 30052
+  selector:
+    statefulset.kubernetes.io/pod-name: web-51
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-53
+spec:
+  type: NodePort
+  ports:
+  - port: 30053
+    name: web
+    targetPort: 5678
+    nodePort: 30053
+  selector:
+    statefulset.kubernetes.io/pod-name: web-52
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-54
+spec:
+  type: NodePort
+  ports:
+  - port: 30054
+    name: web
+    targetPort: 5678
+    nodePort: 30054
+  selector:
+    statefulset.kubernetes.io/pod-name: web-53
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-55
+spec:
+  type: NodePort
+  ports:
+  - port: 30055
+    name: web
+    targetPort: 5678
+    nodePort: 30055
+  selector:
+    statefulset.kubernetes.io/pod-name: web-54
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-56
+spec:
+  type: NodePort
+  ports:
+  - port: 30056
+    name: web
+    targetPort: 5678
+    nodePort: 30056
+  selector:
+    statefulset.kubernetes.io/pod-name: web-55
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-57
+spec:
+  type: NodePort
+  ports:
+  - port: 30057
+    name: web
+    targetPort: 5678
+    nodePort: 30057
+  selector:
+    statefulset.kubernetes.io/pod-name: web-56
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-58
+spec:
+  type: NodePort
+  ports:
+  - port: 30058
+    name: web
+    targetPort: 5678
+    nodePort: 30058
+  selector:
+    statefulset.kubernetes.io/pod-name: web-57
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-59
+spec:
+  type: NodePort
+  ports:
+  - port: 30059
+    name: web
+    targetPort: 5678
+    nodePort: 30059
+  selector:
+    statefulset.kubernetes.io/pod-name: web-58
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-60
+spec:
+  type: NodePort
+  ports:
+  - port: 30060
+    name: web
+    targetPort: 5678
+    nodePort: 30060
+  selector:
+    statefulset.kubernetes.io/pod-name: web-59
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-61
+spec:
+  type: NodePort
+  ports:
+  - port: 30061
+    name: web
+    targetPort: 5678
+    nodePort: 30061
+  selector:
+    statefulset.kubernetes.io/pod-name: web-60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-62
+spec:
+  type: NodePort
+  ports:
+  - port: 30062
+    name: web
+    targetPort: 5678
+    nodePort: 30062
+  selector:
+    statefulset.kubernetes.io/pod-name: web-61
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-63
+spec:
+  type: NodePort
+  ports:
+  - port: 30063
+    name: web
+    targetPort: 5678
+    nodePort: 30063
+  selector:
+    statefulset.kubernetes.io/pod-name: web-62
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-64
+spec:
+  type: NodePort
+  ports:
+  - port: 30064
+    name: web
+    targetPort: 5678
+    nodePort: 30064
+  selector:
+    statefulset.kubernetes.io/pod-name: web-63
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-65
+spec:
+  type: NodePort
+  ports:
+  - port: 30065
+    name: web
+    targetPort: 5678
+    nodePort: 30065
+  selector:
+    statefulset.kubernetes.io/pod-name: web-64
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-66
+spec:
+  type: NodePort
+  ports:
+  - port: 30066
+    name: web
+    targetPort: 5678
+    nodePort: 30066
+  selector:
+    statefulset.kubernetes.io/pod-name: web-65
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-67
+spec:
+  type: NodePort
+  ports:
+  - port: 30067
+    name: web
+    targetPort: 5678
+    nodePort: 30067
+  selector:
+    statefulset.kubernetes.io/pod-name: web-66
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-68
+spec:
+  type: NodePort
+  ports:
+  - port: 30068
+    name: web
+    targetPort: 5678
+    nodePort: 30068
+  selector:
+    statefulset.kubernetes.io/pod-name: web-67
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-69
+spec:
+  type: NodePort
+  ports:
+  - port: 30069
+    name: web
+    targetPort: 5678
+    nodePort: 30069
+  selector:
+    statefulset.kubernetes.io/pod-name: web-68
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-70
+spec:
+  type: NodePort
+  ports:
+  - port: 30070
+    name: web
+    targetPort: 5678
+    nodePort: 30070
+  selector:
+    statefulset.kubernetes.io/pod-name: web-69
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-71
+spec:
+  type: NodePort
+  ports:
+  - port: 30071
+    name: web
+    targetPort: 5678
+    nodePort: 30071
+  selector:
+    statefulset.kubernetes.io/pod-name: web-70
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-72
+spec:
+  type: NodePort
+  ports:
+  - port: 30072
+    name: web
+    targetPort: 5678
+    nodePort: 30072
+  selector:
+    statefulset.kubernetes.io/pod-name: web-71
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-73
+spec:
+  type: NodePort
+  ports:
+  - port: 30073
+    name: web
+    targetPort: 5678
+    nodePort: 30073
+  selector:
+    statefulset.kubernetes.io/pod-name: web-72
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-74
+spec:
+  type: NodePort
+  ports:
+  - port: 30074
+    name: web
+    targetPort: 5678
+    nodePort: 30074
+  selector:
+    statefulset.kubernetes.io/pod-name: web-73
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-75
+spec:
+  type: NodePort
+  ports:
+  - port: 30075
+    name: web
+    targetPort: 5678
+    nodePort: 30075
+  selector:
+    statefulset.kubernetes.io/pod-name: web-74
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-76
+spec:
+  type: NodePort
+  ports:
+  - port: 30076
+    name: web
+    targetPort: 5678
+    nodePort: 30076
+  selector:
+    statefulset.kubernetes.io/pod-name: web-75
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-77
+spec:
+  type: NodePort
+  ports:
+  - port: 30077
+    name: web
+    targetPort: 5678
+    nodePort: 30077
+  selector:
+    statefulset.kubernetes.io/pod-name: web-76
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-78
+spec:
+  type: NodePort
+  ports:
+  - port: 30078
+    name: web
+    targetPort: 5678
+    nodePort: 30078
+  selector:
+    statefulset.kubernetes.io/pod-name: web-77
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-79
+spec:
+  type: NodePort
+  ports:
+  - port: 30079
+    name: web
+    targetPort: 5678
+    nodePort: 30079
+  selector:
+    statefulset.kubernetes.io/pod-name: web-78
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-80
+spec:
+  type: NodePort
+  ports:
+  - port: 30080
+    name: web
+    targetPort: 5678
+    nodePort: 30080
+  selector:
+    statefulset.kubernetes.io/pod-name: web-79
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-81
+spec:
+  type: NodePort
+  ports:
+  - port: 30081
+    name: web
+    targetPort: 5678
+    nodePort: 30081
+  selector:
+    statefulset.kubernetes.io/pod-name: web-80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-82
+spec:
+  type: NodePort
+  ports:
+  - port: 30082
+    name: web
+    targetPort: 5678
+    nodePort: 30082
+  selector:
+    statefulset.kubernetes.io/pod-name: web-81
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-83
+spec:
+  type: NodePort
+  ports:
+  - port: 30083
+    name: web
+    targetPort: 5678
+    nodePort: 30083
+  selector:
+    statefulset.kubernetes.io/pod-name: web-82
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-84
+spec:
+  type: NodePort
+  ports:
+  - port: 30084
+    name: web
+    targetPort: 5678
+    nodePort: 30084
+  selector:
+    statefulset.kubernetes.io/pod-name: web-83
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-85
+spec:
+  type: NodePort
+  ports:
+  - port: 30085
+    name: web
+    targetPort: 5678
+    nodePort: 30085
+  selector:
+    statefulset.kubernetes.io/pod-name: web-84
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-86
+spec:
+  type: NodePort
+  ports:
+  - port: 30086
+    name: web
+    targetPort: 5678
+    nodePort: 30086
+  selector:
+    statefulset.kubernetes.io/pod-name: web-85
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-87
+spec:
+  type: NodePort
+  ports:
+  - port: 30087
+    name: web
+    targetPort: 5678
+    nodePort: 30087
+  selector:
+    statefulset.kubernetes.io/pod-name: web-86
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-88
+spec:
+  type: NodePort
+  ports:
+  - port: 30088
+    name: web
+    targetPort: 5678
+    nodePort: 30088
+  selector:
+    statefulset.kubernetes.io/pod-name: web-87
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-89
+spec:
+  type: NodePort
+  ports:
+  - port: 30089
+    name: web
+    targetPort: 5678
+    nodePort: 30089
+  selector:
+    statefulset.kubernetes.io/pod-name: web-88
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-90
+spec:
+  type: NodePort
+  ports:
+  - port: 30090
+    name: web
+    targetPort: 5678
+    nodePort: 30090
+  selector:
+    statefulset.kubernetes.io/pod-name: web-89
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-91
+spec:
+  type: NodePort
+  ports:
+  - port: 30091
+    name: web
+    targetPort: 5678
+    nodePort: 30091
+  selector:
+    statefulset.kubernetes.io/pod-name: web-90
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-92
+spec:
+  type: NodePort
+  ports:
+  - port: 30092
+    name: web
+    targetPort: 5678
+    nodePort: 30092
+  selector:
+    statefulset.kubernetes.io/pod-name: web-91
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-93
+spec:
+  type: NodePort
+  ports:
+  - port: 30093
+    name: web
+    targetPort: 5678
+    nodePort: 30093
+  selector:
+    statefulset.kubernetes.io/pod-name: web-92
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-94
+spec:
+  type: NodePort
+  ports:
+  - port: 30094
+    name: web
+    targetPort: 5678
+    nodePort: 30094
+  selector:
+    statefulset.kubernetes.io/pod-name: web-93
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-95
+spec:
+  type: NodePort
+  ports:
+  - port: 30095
+    name: web
+    targetPort: 5678
+    nodePort: 30095
+  selector:
+    statefulset.kubernetes.io/pod-name: web-94
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-96
+spec:
+  type: NodePort
+  ports:
+  - port: 30096
+    name: web
+    targetPort: 5678
+    nodePort: 30096
+  selector:
+    statefulset.kubernetes.io/pod-name: web-95
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-97
+spec:
+  type: NodePort
+  ports:
+  - port: 30097
+    name: web
+    targetPort: 5678
+    nodePort: 30097
+  selector:
+    statefulset.kubernetes.io/pod-name: web-96
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-98
+spec:
+  type: NodePort
+  ports:
+  - port: 30098
+    name: web
+    targetPort: 5678
+    nodePort: 30098
+  selector:
+    statefulset.kubernetes.io/pod-name: web-97
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-99
+spec:
+  type: NodePort
+  ports:
+  - port: 30099
+    name: web
+    targetPort: 5678
+    nodePort: 30099
+  selector:
+    statefulset.kubernetes.io/pod-name: web-98
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-100
+spec:
+  type: NodePort
+  ports:
+  - port: 30100
+    name: web
+    targetPort: 5678
+    nodePort: 30100
+  selector:
+    statefulset.kubernetes.io/pod-name: web-99

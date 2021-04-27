@@ -1,0 +1,117 @@
+resources:
+- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
+  name: helloworld-metadata
+  connect_timeout: 10s
+  type: STATIC
+  lb_policy: RING_HASH
+  lb_subset_config:
+    fallback_policy: ANY_ENDPOINT
+    subset_selectors:
+      - keys:
+           - node
+        single_host_per_subset: true
+  load_assignment:
+    cluster_name: helloworldlbmetadata
+    endpoints:
+    - lb_endpoints:
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.8
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-2b8n4"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.7
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-4cf6p"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.0.9
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-8cr5c"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.2
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-9lvh4"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.9
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-crzt4"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.3
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-h58l5"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.4
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-j8pbp"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.1.9
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-sbj48"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.1.10
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-sv9z5"
+
+      - endpoint:
+          address:
+            socket_address:
+              address: 10.244.4.6
+              port_value: 5000
+        metadata:
+          filter_metadata:
+            envoy.lb:
+              node: "8657d759f9-t4fxf"
+
+
